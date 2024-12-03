@@ -1,0 +1,87 @@
+{
+  "name": "initgaodemap",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint:comment": "使用 ESLint 检查并自动修复 src 目录下所有扩展名为 .js 和 .vue 的文件",
+    "lint": "eslint --fix",
+    "prettier:comment": "自动格式化当前目录下的所有文件",
+    "prettier": "prettier --write",
+    "commit:comment": "引导设置规范化的提交信息",
+    "commit": "git-cz",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@vueuse/core": "^12.0.0",
+    "axios": "^1.7.8",
+    "es-toolkit": "^1.29.0",
+    "globals": "^15.13.0",
+    "mitt": "^3.0.1",
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.2.8",
+    "pinia-plugin-persistedstate": "^4.1.3",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "unplugin-auto-import": "^0.18.6",
+    "unplugin-vue-components": "^0.27.5",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-mock": "^3.0.2",
+    "vite-plugin-optimize-persist": "^0.1.2",
+    "vite-plugin-package-config": "^0.1.1",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.3.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^2.8.8",
+    "sass": "^1.81.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1",
+    "vue-tsc": "^2.1.10"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue,ts}": [
+      "npm run lint",
+      "npm run prettier"
+    ]
+  },
+  "vite": {
+    "optimizeDeps": {
+      "include": [
+        "@vueuse/core",
+        "axios",
+        "mitt",
+        "es-toolkit",
+        "nprogress",
+        "pinia",
+        "pinia-plugin-persist",
+        "vue",
+        "vue-router"
+      ]
+    }
+  }
+}
