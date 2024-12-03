@@ -14,10 +14,11 @@ import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // import PkgConfig from "vite-plugin-package-config";
 // TODO : 配置mock
 // TODO : 配置资源预构建
-// TODO : 配置包依赖分析可视化
+// TODO : 配置包依赖分析可视化;
 
 // https://vite.dev/config/
 export default defineConfig({
+    base: '/custom/',
     plugins: [
         Vue(),
         VueSetupExtend(),
