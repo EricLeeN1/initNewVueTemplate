@@ -3,6 +3,7 @@ import Vue from '@vitejs/plugin-vue';
 import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite'; // 依赖按需自动导入
 import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import eslintPlugin from 'vite-plugin-eslint';
 import { viteMockServe } from 'vite-plugin-mock'; // mock数据
 import { visualizer } from 'rollup-plugin-visualizer'; // 包依赖分析可视化
@@ -76,11 +77,15 @@ export default defineConfig(({ command, mode }) => {
 
                 // custom resolvers
                 // see https://github.com/antfu/unplugin-auto-import/pull/23/
-                resolvers: [],
+                resolvers: [ElementPlusResolver()],
             }),
             Components({
                 dts: 'src/components.d.ts',
-                resolvers: [],
+                resolvers: [
+                    ElementPlusResolver({
+                        importStyle: 'sass',
+                    }),
+                ],
             }),
             eslintPlugin({
                 // 配置
@@ -138,6 +143,7 @@ export default defineConfig(({ command, mode }) => {
                         @use "@/styles/mixins.scss" as *;
                     `,
                 },
+                api: 'modern-compiler',
             },
         },
         build: {
