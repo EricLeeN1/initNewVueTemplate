@@ -25,12 +25,14 @@ specifiers:
   nprogress: ^0.2.0
   pinia: ^2.2.8
   pinia-plugin-persistedstate: ^4.1.3
+  postcss-px-to-viewport: ^1.1.1
   prettier: ^2.8.8
   rollup-plugin-visualizer: ^5.12.0
   sass: ^1.81.0
   typescript: ~5.6.2
   unplugin-auto-import: ^0.18.6
   unplugin-vue-components: ^0.27.5
+  vant: ^4.9.9
   vite: ^6.0.1
   vite-plugin-compression: ^0.5.1
   vite-plugin-eslint: ^1.8.1
@@ -56,6 +58,7 @@ dependencies:
   rollup-plugin-visualizer: 5.12.0
   unplugin-auto-import: 0.18.6_@vueuse+core@12.0.0
   unplugin-vue-components: 0.27.5_vue@3.5.13
+  vant: 4.9.9_vue@3.5.13
   vite-plugin-compression: 0.5.1_vite@6.0.2
   vite-plugin-eslint: 1.8.1_eslint@8.57.1+vite@6.0.2
   vite-plugin-mock: 3.0.2_mockjs@1.1.0+vite@6.0.2
@@ -80,6 +83,7 @@ devDependencies:
   eslint-plugin-vue: 8.7.1_eslint@8.57.1
   husky: 6.0.0
   lint-staged: 15.2.10
+  postcss-px-to-viewport: 1.1.1
   prettier: 2.8.8
   sass: 1.81.0
   typescript: 5.6.3
@@ -1309,6 +1313,18 @@ packages:
 
   /@ungap/structured-clone/1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
+
+  /@vant/popperjs/1.3.0:
+    resolution: {integrity: sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==}
+    dev: false
+
+  /@vant/use/1.6.0_vue@3.5.13:
+    resolution: {integrity: sha512-PHHxeAASgiOpSmMjceweIrv2AxDZIkWXyaczksMoWvKV2YAYEhoizRuk/xFnKF+emUIi46TsQ+rvlm/t2BBCfA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.5.13_typescript@5.6.3
+    dev: false
 
   /@vitejs/plugin-vue/5.2.1_vite@6.0.2+vue@3.5.13:
     resolution: {integrity: sha512-cxh314tzaWwOLqVes2gnnCtvBDcM1UMdn+iFR+UjAn411dPT3tOmqrJjbMd7koZpMAmBM/GqeV4n9ge7JSiJJQ==}
@@ -3670,6 +3686,11 @@ packages:
       ufo: 1.5.4
     dev: false
 
+  /object-assign/4.1.1:
+    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /ohash/1.1.4:
     resolution: {integrity: sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==}
     dev: false
@@ -3927,6 +3948,13 @@ packages:
       mlly: 1.7.3
       pathe: 1.1.2
     dev: false
+
+  /postcss-px-to-viewport/1.1.1:
+    resolution: {integrity: sha512-2x9oGnBms+e0cYtBJOZdlwrFg/mLR4P1g2IFu7jYKvnqnH/HLhoKyareW2Q/x4sg0BgklHlP1qeWo2oCyPm8FQ==}
+    dependencies:
+      object-assign: 4.1.1
+      postcss: 8.4.49
+    dev: true
 
   /postcss-selector-parser/6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
@@ -4780,6 +4808,17 @@ packages:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
     dev: true
+
+  /vant/4.9.9_vue@3.5.13:
+    resolution: {integrity: sha512-sEw3ljwCza5dazpJqh04b38vCjNr2Id8vb7LOkYQQR/94iERDIm5jcQinhmwlRnwoGCa+JkNwm0jrCafzZJiwA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@vant/popperjs': 1.3.0
+      '@vant/use': 1.6.0_vue@3.5.13
+      '@vue/shared': 3.5.13
+      vue: 3.5.13_typescript@5.6.3
+    dev: false
 
   /vite-plugin-compression/0.5.1_vite@6.0.2:
     resolution: {integrity: sha512-5QJKBDc+gNYVqL/skgFAP81Yuzo9R+EAf19d+EtsMF/i8kFUpNi3J/H01QD3Oo8zBQn+NzoCIFkpPLynoOzaJg==}
