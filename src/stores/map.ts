@@ -34,14 +34,14 @@ export const useMapStore = defineStore('map', {
             const AMap = await loadAmapScriptWithLoca();
             console.log(AMap);
             this.scriptLoaded = true;
-            this.initLoca();
+            this.initLoca(AMap);
         },
-        initLoca() {
+        initLoca(AMap: any) {
             const option = getUrlParamsAndMergeDefaultMapParams({
                 terrain: true,
                 viewMode: '3D',
-                mapStyle: 'amap://styles/45311ae996a8bea0da10ad5151f72979',
-                // mapStyle: "amap://styles/509934ebf66e54cbfe10ccae0056c462",
+                // mapStyle: 'amap://styles/45311ae996a8bea0da10ad5151f72979',
+                mapStyle: 'amap://styles/509934ebf66e54cbfe10ccae0056c462',
                 showBuildingBlock: false,
                 showLabel: false,
                 layers: [
@@ -60,12 +60,6 @@ export const useMapStore = defineStore('map', {
             this.$map &&
                 this.$map.on('complete', () => {
                     this.mapInitCompleted = true;
-                    // document.querySelector('.start-btn').addEventListener('click', function () {
-                    if (this.currentRoute.path === '/dashboard') {
-                        setTimeout(() => {
-                            this.indexViewControl();
-                        }, 1000);
-                    }
                     // mitt.emit('initInfosWindow');
                     // 添加城镇区域
                     // this.initLoca();
