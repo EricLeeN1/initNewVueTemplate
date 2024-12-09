@@ -22,7 +22,7 @@ export const MAP_PLUGINS = [
 ];
 
 // 地图中心点 默认平陆县
-export const MAP_CENTER = [111.223559, 34.843023];
-export const DEFAULT_ZOOM = 10;
-export const DEFAULT_PITCH = 30;
+export const MAP_CENTER = [111.217122, 34.837789];
+export const DEFAULT_ZOOM = 15;
+export const DEFAULT_PITCH = 0;
 export const DEFAULT_ROTATION = 0;

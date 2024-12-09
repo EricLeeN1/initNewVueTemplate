@@ -34,7 +34,7 @@ export const tryLoadAmapScript = (config: any = {}) => {
  * @param plugins 地图插件
  * @return {Promise<void>}
  */
-export const loadAmapScriptWithLoca = (plugins = []) => {
+export const loadAmapScriptWithLoca = (plugins: string[] = []) => {
     const mergedPlugins = [...DEFAULT_MAP_PLUGINS];
     if (plugins.length > 0) {
         plugins.forEach((p) => {
@@ -49,6 +49,11 @@ export const loadAmapScriptWithLoca = (plugins = []) => {
         plugins: mergedPlugins, // 需要使用的的插件列表，如比例尺'AMap.Scale'等
         Loca: {
             version: '2.0.0', // Loca 版本，缺省 1.3.2
+        },
+        AMapUI: {
+            //是否加载 AMapUI，缺省不加载
+            version: '1.1', //AMapUI 版本
+            plugins: ['overlay/SimpleMarker'], //需要加载的 AMapUI ui 插件
         },
     });
 };
