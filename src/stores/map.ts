@@ -41,6 +41,43 @@ export const useMapStore = defineStore('map', {
         updateKey<T extends keyof MapStoreState>(key: T, value: any) {
             this[key] = value;
         },
+        drawMouseTool() {
+            // const mouseTool = new window.AMap.MouseTool(this.$map);
+            // mouseTool.polyline 绘制折线
+            // mouseTool.polygon 绘制多边形
+            // mouseTool.rectangle 绘制矩形
+            // mouseTool.circle 绘制圆形
+        },
+        addVector() {
+            // new AMap.Polyline  new AMap.PolylineEditor 绘制折线和编辑折线 参数里设置 geodesic: true  // 绘制大地线 通过polyEditor.open()/close();开关编辑模式
+            // new AMap.BezierCurve new AMap.BezierCurveEditor 绘制和编辑弧线
+            // new AMap.Polygon new AMap.PolygonEditor  绘制和编辑多边形 可设置开启吸附功能 支持单多边形，带孔多边形，多个带孔多边形, 单多边形立面体，带孔多边形立面体，多个带孔多边形立面体。
+            // new AMap.Rectangle new AMap.RectangleEditor  使用AMap.Rectangle和AMap.RectangleEditor绘制和编辑矩形
+            // new AMap.Circle new AMap.CircleEditor 使用AMap.Circle和AMap.CircleEditor绘制和编辑圆;
+            // new AMap.Ellipse new AMap.EllipseEditor 使用AMap.Ellipse和AMap.EllipseEditor绘制和编辑椭圆
+        },
+        addMaker() {
+            // new AMap.Text 文本标记 用AMap.Text创建纯文本的点标记
+            // new AMap.Marker 点标记 通过icon属性创建Marker，展示添加、修改、删除Marker的接口
+            // new AMap.Marker 自定义点标记内容 通过content属性设定Marker的显示内容。
+            // new AMap.Icon 自定义图标 使用AMap.Icon类的实例作为Marker的图标
+            // new AMap.CircleMarker 圆点标记 使用AMap.CircleMarker创建圆点标记
+            // new AMap.ElasticMarker 灵活的点标记 使用AMap.ElasticMarker是一种可以随着地图缩放改变图标、大小的点标记，本例子模拟了简单的平面展示图，缩放地图看看吧
+            // new AMap.OverlayGroup 使用OverlayGroup对地图上的覆盖物做集合操作，适用于需要对覆盖物批量处理的场景。 setOptions(修改集合内的属性) add/remove
+            // 设置鼠标划过点标记显示的文字提示
+            // marker.setTitle('我是marker的title');
+            // 设置label标签
+            // label默认蓝框白底左上角显示，样式className为：amap-marker-label
+            // marker.setLabel({
+            //     direction: 'right',
+            //     offset: new AMap.Pixel(10, 0), //设置文本标注偏移量
+            //     content: "<div class='info'>我是 marker 的 label 标签</div>", //设置文本标注内容
+            // });
+            // 通过Marker.setMap(null)从多个点中删除指定点标记。
+            // markers[0].setMap(null) // 从多个点中删除指定点
+            // 设置是否可以拖拽
+            // draggable: true,
+        },
         // 添加自有数据图层
         addLayer() {
             // new AMap.ImageLayer 图片图层
@@ -276,17 +313,55 @@ export const useMapStore = defineStore('map', {
             this.$Layer = $layer;
             this.$map?.add($layer);
         },
+        getSinglePointInfos() {
+            // 获取存在每个 extData 中的 id
+        },
+        // 当地图上出现多种覆盖物类型的时候，获取某类覆盖物的方式。
+        getPointInfos(type: any) {
+            const info: any = {
+                marker: '点标记',
+                polyline: '线',
+                polygon: '面',
+            };
+            // 获取当 marker 类型的覆盖物
+            const overlays = this.$map.getAllOverlays(type);
+
+            const position =
+                type == 'marker'
+                    ? overlays[0].getPosition()
+                    : overlays[0].getPath()[0];
+
+            const infoWindow = new window.AMap.InfoWindow({
+                position: position,
+                offset:
+                    type == 'marker'
+                        ? new window.AMap.Pixel(0, -35)
+                        : new window.AMap.Pixel(0, -5),
+                content: '<div>已获取' + info[type] + '覆盖物</div>',
+            });
+
+            infoWindow.open(this.$map);
+        },
         // 基础方法-覆盖物的添加与移除，添加，移除
         addPoint(point: any) {
             // 添加 Marker polygon Circle line 等，也可以添加图层,可以一个也可以[maker，polyline, polygon]多个
             this.$map?.add(point);
             // 自动适配到指定视野范围([maker1,maker2,maker3]) 无参数时，自动自适应所有覆盖物
             this.$map?.setFitView();
+            // 第一个参数为空，表明用图上所有覆盖物 setFitview
+            // 第二个参数为false, 非立即执行
+            // 第三个参数设置上左下右的空白
+            // 撞见多个Marker，通过Map.setFitView自动适配地图级别和中心，使点标记同时显示在视野内。
+            // this.$map?.setFitView(null, false, [150, 60, 100, 60]);
         },
         removePoint(point: any) {
             // 移除 Marker polygon Circle line 等，也可以移除图层,可以一个也可以[maker，polyline, polygon]多个
             this.$map?.remove(point);
             this.$map?.setFitView();
+        },
+        clearMap() {
+            // 清除地图上所有添加的覆盖物
+            this.$map.clearMap();
         },
         // 设置缩放级别和地图中心点
         setZoomAndCenter(
