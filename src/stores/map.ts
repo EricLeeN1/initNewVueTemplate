@@ -41,6 +41,51 @@ export const useMapStore = defineStore('map', {
         updateKey<T extends keyof MapStoreState>(key: T, value: any) {
             this[key] = value;
         },
+        judgeGeo() {
+            // https://lbs.amap.com/demo/javascript-api-v2/example/relationship-judgment/point-surface-relation
+            // 点是否在线上 使用 AMap.GeometryUtil.isPointOnSegment 判断点是否在线上。
+            // 点是否在多边形内 使用 AMap.GeometryUtil.isPointInRing ，判断点是否在多边形内。
+            // 面与面的几何关系 GeometryUtil提供了面和面几何关系的计算方法，包括包含关系、相交关系以及重叠面的计算等，ringRingClip仅适用于凸多边形。
+            // 路径是否顺时针 使用 AMap.GeometryUtil.isClockwise ，判断路径是否为顺时针。
+        },
+        // 几何计算
+        calcGeo() {
+            // https://lbs.amap.com/demo/javascript-api-v2/example/calcutation/calculate-distance-between-two-markers
+            // 两点间距离 使用LngLat.distance计算两个经纬度之间的直线距离。Math.round(p1.distance(p2))
+            // 点到线的距离 使用AMap.GeometryUtil的对应方法，获取折线上距离某点最近的位置、点到线的距离。
+            // 路径长度 使用 AMap.GeometryUtil.distanceOfLine 计算某段路径的实际长度，返回数据以米为单位。
+            // 区域面积 使用 AMap.GeometryUtil.ringArea 计算区域，返回数据以平方米为单位。
+        },
+        // 当前浏览器环境的一些通用检测结果可以通过 AMap.Browser 获取
+        getBrowser() {
+            // AMap.Browser
+        },
+        // Util封装了颜色值格式转换、requestAnimFrame封装、数组元素删除等常用工具方法。颜色值格式转换接口可以方便地取得canvas或者webgl绘制需要的颜色格式。
+        getUtil() {
+            // AMap.Util.color2Rgba
+            // AMap.Util.color2RgbaArray
+        },
+        // 鼠标工具-距离面积测量 可自定义测量样式
+        drawMeasure() {
+            // https://lbs.amap.com/demo/javascript-api-v2/example/mouse-operate-map/measure-area
+            // 使用MouseTool封装了RagingTool的测距功能，同时提供了 measureArea 面积测量功能
+        },
+        // 鼠标工具-绘制覆盖物
+        drawOverlays() {
+            // https://lbs.amap.com/demo/javascript-api-v2/example/mouse-operate-map/mouse-draw-overlayers
+            // 使用MouseTool可以在地图上绘制Marker、Polyline、Polygon和Circle。
+        },
+        getWeather() {
+            // const weather = new AMap.Weather()
+            // weather.getLive('朝阳区', (err, result) => {}) // //查询实时天气信息, 查询的城市到行政级别的城市，如朝阳区、杭州市
+            // weather.getForecast('朝阳区', (err, result) => {}) // 未来4天天气预报
+        },
+        drawPlan() {
+            // new window.AMap.Driving(); 开车
+            // new window.AMap.Walking(); 步行
+            // new window.AMap.Riding(); 骑行
+            // new window.AMap.Transfer(); 公交
+        },
         drawMouseTool() {
             // const mouseTool = new window.AMap.MouseTool(this.$map);
             // mouseTool.polyline 绘制折线
@@ -77,6 +122,9 @@ export const useMapStore = defineStore('map', {
             // markers[0].setMap(null) // 从多个点中删除指定点
             // 设置是否可以拖拽
             // draggable: true,
+            // infoWindow.setContent(e.target.content);
+            // infoWindow.open(map, e.target.getPosition());
+            // contextMenu = new AMap.ContextMenu() contextMenu.open(map, e.lnglat);
         },
         // 添加自有数据图层
         addLayer() {
