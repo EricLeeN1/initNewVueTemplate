@@ -9,7 +9,7 @@ window._AMapSecurityConfig = {
 
 /**
  * 尝试载入高德地图js-sdk , 返回promise, 如果已载入,则立即返回 Promise.resolve() ,本方法可以反复重复调用无副作用.
- * @param plugins 地图插件
+ * @param plugins 地图插件 插件列表-https://lbs.amap.com/api/javascript-api-v2/guide/abc/plugins-list
  * @param version 地图版本
  * @return {Promise<void>}
  */

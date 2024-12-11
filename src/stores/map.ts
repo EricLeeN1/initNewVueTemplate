@@ -292,15 +292,6 @@ export const useMapStore = defineStore('map', {
                 });
             }
         },
-        // 销毁地图
-        destoryMap() {
-            // 销毁地图相关实例,清理干净现场
-            if (this.$map) {
-                this.$map.destroy();
-                this.$map = null;
-                this.updateKey('$map', null);
-            }
-        },
         toggleControl() {
             const scale = new window.AMap.Scale();
             const toolBar = new window.AMap.ToolBar({
@@ -365,7 +356,8 @@ export const useMapStore = defineStore('map', {
             // 获取存在每个 extData 中的 id
         },
         // 当地图上出现多种覆盖物类型的时候，获取某类覆盖物的方式。
-        getPointInfos(type: any) {
+        getPointInfos(type: any = '') {
+            // type 为空时获取所有
             const info: any = {
                 marker: '点标记',
                 polyline: '线',
@@ -474,17 +466,7 @@ export const useMapStore = defineStore('map', {
                 // this.initLoca();
                 // this.AddTownData();
             });
-            this.$map?.on('click', (e: any) => {
-                console.log(e);
-                this.getClickInfos(e);
-                this.gotoCity('');
-                this.getCityInfos();
-                this.getMapBoundsInfos();
-                // mitt.emit('initInfosWindow');
-                // 添加城镇区域
-                // this.initLoca();
-                // this.AddTownData();
-            });
+            this.$map?.on('click', this.mapClickHandler);
             this.$map?.on('hotspotover', (result: any) => {
                 console.log(result);
                 this.getHotSpotInfos(result);
@@ -505,6 +487,31 @@ export const useMapStore = defineStore('map', {
             // 覆盖物拖拽相关事件 click marker/circle/polygon.on('dragging', ()=>{}) marker/circle/polygon.off('dragging', ()=>{})
             // 信息窗体打开关闭事件 open,close infoWindow.on('open', ()=>{}) infoWindow.close()
             // 使用Map的emit和on方法，绑定和触发自定义事件 map.on('count', ()=>{}) map.emit('count', ()=>{})
+        },
+        mapClickHandler(e: any) {
+            console.log(e);
+            this.getClickInfos(e);
+            this.gotoCity('');
+            this.getCityInfos();
+            this.getMapBoundsInfos();
+            // mitt.emit('initInfosWindow');
+            // 添加城镇区域
+            // this.initLoca();
+            // this.AddTownData();
+        },
+        // 销毁地图
+        destoryMap() {
+            // 销毁地图相关实例,清理干净现场
+            if (this.$map) {
+                //解绑地图的点击事件
+                this.$map.off('click', this.mapClickHandler);
+                //销毁地图，并清空地图容器
+                this.$map.destroy();
+                //地图对象赋值为null
+                this.$map = null;
+                //清除地图容器的 DOM 元素
+                document.getElementById(this.mapContainerId)?.remove(); //"container" 为指定 DOM 元素的id
+            }
         },
     },
 });
